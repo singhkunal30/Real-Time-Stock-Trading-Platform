@@ -51,8 +51,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getUserById(long id) {
-		User user = userRepository.findById(id).orElseThrow(
-				() -> new CommonException(errMsg.getUserNotFound(), errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + id, errCode.getUserNotFound(),
+						HttpStatus.NOT_FOUND));
 		return mapper.toDto(user);
 	}
 
@@ -79,8 +80,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getUserByEmailOrUsername(String value) {
-		User user = userRepository.findByEmailOrUsername(value, value).orElseThrow(
-				() -> new CommonException(errMsg.getUserNotFound(), errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
+		User user = userRepository.findByEmailOrUsername(value, value)
+				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + value,
+						errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
 		return mapper.toDto(user);
 	}
 }

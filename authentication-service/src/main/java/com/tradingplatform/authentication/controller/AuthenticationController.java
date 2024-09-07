@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,9 @@ import com.tradingplatform.authentication.service.CustomUserDetailsService;
 import com.tradingplatform.authentication.service.JwtService;
 import com.tradingplatform.authentication.utils.JwtRequest;
 import com.tradingplatform.authentication.utils.JwtToken;
+import com.tradingplatform.common.exception.CommonException;
+import com.tradingplatform.common.exception.ErrorCode;
+import com.tradingplatform.common.exception.ErrorMessage;
 import com.tradingplatform.common.utils.JsonUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,15 +43,40 @@ public class AuthenticationController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private ErrorCode errCode;
+
+	@Autowired
+	private ErrorMessage errMsg;
+
 	@PostMapping("/auth")
 	public ResponseEntity<JwtToken> authenticate(HttpServletRequest request) {
 		JwtRequest jwtRequest = JsonUtils.bindRequestToObject(request, new TypeReference<JwtRequest>() {
 		});
-		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+		try {
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+		} catch(CommonException ce) {
+			throw ce;
+		} catch (BadCredentialsException e) {
+			throw new CommonException(errMsg.getAuthBadCredential(), errCode.getAuthBadCredential(),
+					HttpStatus.UNAUTHORIZED);
+		} catch(Exception e) {
+			Throwable cause = e.getCause();
+	        if (cause instanceof CommonException) {
+				throw (CommonException)cause;
+			}
+			throw e;
+		}
+
 		UserDetails user = userDetailsService.loadUserByUsername(jwtRequest.getUsername());
+		if (user == null) {
+			throw new CommonException(errMsg.getUserNotFound() + " " + jwtRequest.getUsername(),
+					errCode.getUserNotFound(), HttpStatus.NOT_FOUND);
+		}
+
 		JwtToken token = new JwtToken(jwtService.generateToken(user));
-		return new ResponseEntity<JwtToken>(token, HttpStatus.OK);
+		return new ResponseEntity<>(token, HttpStatus.OK);
 	}
 
 	@PostMapping("/validate-token")

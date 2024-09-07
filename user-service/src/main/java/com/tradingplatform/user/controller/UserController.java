@@ -34,12 +34,12 @@ public class UserController {
 		return new ResponseEntity<>(userService.register(userDTO), HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/getById/{id}")
 	public ResponseEntity<UserDTO> getUserById(@PathVariable int id) {
 		return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{userName}")
+	@GetMapping("/{value}")
 	public ResponseEntity<UserDTO> getUserByEmailOrUsername(@PathVariable String value) {
 		return new ResponseEntity<>(userService.getUserByEmailOrUsername(value), HttpStatus.OK);
 	}

@@ -7,10 +7,9 @@ spring:
     name: authentication-service
 security:
   jwt:
-    secret:
-      key: 357638792F423F4428472B4B6250655368566D597133743677397A2443264629
+    secret-key: 357638792F423F4428472B4B6250655368566D597133743677397A2443264629
     expiration-time: 3600000
 
-authentication:
-  service:
-    baseuri: "http://localhost:8001/api/v1/authenticate/"
+baseuri:
+  user: http://localhost:8101/api/v1/user/
+  authentication: http://localhost:8001/api/v1/authenticate/

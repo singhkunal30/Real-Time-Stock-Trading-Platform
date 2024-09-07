@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.tradingplatform.common.enums.Role;
+import com.tradingplatform.common.validators.annotations.ValidEmail;
+import com.tradingplatform.common.validators.annotations.ValidPassword;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -41,9 +43,11 @@ public class User {
 	private String username;
 
 	@Column(nullable = false)
+	@ValidPassword
 	private String password;
 
 	@Column(unique = true, nullable = false)
+	@ValidEmail
 	private String email;
 
 	private String firstName;
