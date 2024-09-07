@@ -24,15 +24,15 @@ public class StockPrice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long priceId;
+	private long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String stockSymbol;
 
 	@Column(nullable = false)
-	private BigDecimal price;
+	private BigDecimal currentPrice;
 
 	@Column(nullable = false)
-	private Timestamp priceDate;
+	private Timestamp lastUpdated;
 
 }

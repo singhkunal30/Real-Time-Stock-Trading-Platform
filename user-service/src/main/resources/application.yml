@@ -16,3 +16,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+
+baseuri:
+  user: http://localhost:8101/api/v1/user/
+  authentication: http://localhost:8001/api/v1/authenticate/

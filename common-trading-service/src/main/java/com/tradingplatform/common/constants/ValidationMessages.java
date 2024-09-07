@@ -7,6 +7,8 @@ public final class ValidationMessages {
 	public static final String ROLES_REQUIRED = "No role found. Please connect with support.";
 	public static final String INVALID_EMAIL = "Invalid email format";
 	public static final String INVALID_PASSWORD = "Password must contain at least one lowercase letter, "
-			+ "one uppercase letter, one digit, one special character, and no whitespace and must be at least 8 characters long";
+			+ "one uppercase letter, one digit, one special character, and no whitespace and must be at "
+			+ "least 8 characters long";
+	public static final String NULL_PRICE = "Price cannot be empty";
 
 }
