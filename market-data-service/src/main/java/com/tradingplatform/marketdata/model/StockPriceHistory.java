@@ -23,16 +23,16 @@ import lombok.Setter;
 public class StockPriceHistory {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long priceHistoryId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long priceHistoryId;
 
-	@Column(nullable = false)
-	private String stockSymbol;
+    @Column(nullable = false)
+    private String stockSymbol;
 
-	@Column(nullable = false)
-	private BigDecimal price;
+    @Column(nullable = false)
+    private BigDecimal price;
 
-	@Column(nullable = false)
-	private Timestamp priceDate;
+    @Column(nullable = false)
+    private Timestamp priceDate;
 
 }

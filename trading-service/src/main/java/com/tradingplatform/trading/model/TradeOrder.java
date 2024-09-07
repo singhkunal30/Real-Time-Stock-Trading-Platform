@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.tradingplatform.trading.enums.OrderStatus;
-import com.tradingplatform.trading.enums.OrderType;
+import com.tradingplatform.common.enums.OrderStatus;
+import com.tradingplatform.common.enums.OrderType;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -40,7 +40,7 @@ public class TradeOrder {
 
 	@ElementCollection
 	@Column(name = "stocks")
-	private List<Long> stockSymbols;
+	private List<String> stockSymbols;
 
 	private long quantity;
 

@@ -15,42 +15,31 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class ControllerAdvisor {
-	
+
 	@ExceptionHandler(CommonException.class)
-	public ResponseEntity<Object> handleCommonException(CommonException ce, WebRequest request){
+	public ResponseEntity<Object> handleCommonException(CommonException ce, WebRequest request) {
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", ce.getTimestamp());
 		body.put("message", ce.getErrMsg());
 		body.put("error_code", ce.getErrCode());
 		return new ResponseEntity<>(body, ce.getHttpStatus());
 	}
-	
-	@ExceptionHandler(UserException.class)
-	public ResponseEntity<Object> handleCommonException(UserException ue, WebRequest request){
-		Map<String, Object> body = new LinkedHashMap<>();
-		body.put("timestamp", ue.getTimestamp());
-		body.put("message", ue.getErrMsg());
-		body.put("error_code", ue.getErrCode());
-		return new ResponseEntity<>(body, ue.getHttpStatus());
-	}
-	
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException me, WebRequest webRequest){
+	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException me,
+			WebRequest webRequest) {
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", new Date());
 		body.put("message", me.getMessage());
 		body.put("error_code", "");
-		List<String> exceptionalErrors = me.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(x -> x.getDefaultMessage())
-                .collect(Collectors.toList());
+		List<String> exceptionalErrors = me.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage())
+				.collect(Collectors.toList());
 		body.put("Errors", exceptionalErrors);
 		return new ResponseEntity<>(body, me.getStatusCode());
 	}
-	
+
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Object> handleException(Exception e, WebRequest request){
+	public ResponseEntity<Object> handleException(Exception e, WebRequest request) {
 		Map<String, Object> body = new LinkedHashMap<>();
 		body.put("timestamp", "");
 		body.put("message", e.getMessage());

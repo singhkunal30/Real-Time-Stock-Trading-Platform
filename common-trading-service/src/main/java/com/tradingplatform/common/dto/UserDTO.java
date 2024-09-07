@@ -18,7 +18,9 @@ import lombok.Setter;
 public class UserDTO {
 
 	private Long userId;
-
+	
+	private String username;
+	
 	@NotBlank(message = ValidationMessages.EMAIL_REQUIRED)
 	private String email;
 
