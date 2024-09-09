@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.tradingplatform.common.constants.ValidationMessages;
 
 import jakarta.validation.constraints.NotBlank;
@@ -27,6 +29,7 @@ public class UserDTO {
 	private String email;
 
 	@NotBlank(message = ValidationMessages.PASSWORD_REQUIRED)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
 	private String firstName;

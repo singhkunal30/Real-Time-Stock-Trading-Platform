@@ -59,13 +59,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO updateUser(UserDTO userDTO) {
-		User user = userRepository.findById(userDTO.getUserId())
+		long id = userDTO.getUserId();
+		User existingUser = userRepository.findById(id)
 				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + userDTO.getUserId(),
 						errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
-		userDTO.setPassword(user.getPassword());
-		User updatedUser = mapper.toEntity(userDTO);
-		updatedUser.setUserId(userDTO.getUserId());
-		userRepository.save(updatedUser);
+		userDTO.setPassword(existingUser.getPassword());
+		mapper.updateEntityFromDto(userDTO, existingUser);
+		User updatedUser = userRepository.save(existingUser);
 		return mapper.toDto(updatedUser);
 	}
 

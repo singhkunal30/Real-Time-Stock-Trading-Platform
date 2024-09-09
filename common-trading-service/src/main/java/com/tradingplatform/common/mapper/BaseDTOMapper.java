@@ -2,6 +2,8 @@ package com.tradingplatform.common.mapper;
 
 import java.util.List;
 
+import org.mapstruct.MappingTarget;
+
 public interface BaseDTOMapper<E, D> {
 
 	D toDto(E entity);
@@ -11,4 +13,6 @@ public interface BaseDTOMapper<E, D> {
 	List<D> toDtoList(List<E> entityList);
 
 	List<E> toEntityList(List<D> dtoList);
+
+	void updateEntityFromDto(D d, @MappingTarget E e);
 }

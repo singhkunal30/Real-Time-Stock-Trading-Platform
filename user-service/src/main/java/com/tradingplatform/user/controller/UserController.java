@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.tradingplatform.common.dto.UserDTO;
+import com.tradingplatform.common.exception.ErrorCode;
+import com.tradingplatform.common.exception.ErrorMessage;
 import com.tradingplatform.common.utils.JsonUtils;
 import com.tradingplatform.user.service.UserService;
 
@@ -27,10 +29,16 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	ErrorMessage errMsg;
+
+	@Autowired
+	ErrorCode errCode;
+
 	@PostMapping("/register")
 	public ResponseEntity<UserDTO> registerUser(HttpServletRequest request) {
 		UserDTO userDTO = JsonUtils.bindRequestToObject(request, new TypeReference<UserDTO>() {
-		});
+		}, errMsg, errCode);
 		return new ResponseEntity<>(userService.register(userDTO), HttpStatus.CREATED);
 	}
 
@@ -38,7 +46,7 @@ public class UserController {
 	public ResponseEntity<UserDTO> getUserById(@PathVariable int id) {
 		return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{value}")
 	public ResponseEntity<UserDTO> getUserByEmailOrUsername(@PathVariable String value) {
 		return new ResponseEntity<>(userService.getUserByEmailOrUsername(value), HttpStatus.OK);
@@ -47,7 +55,7 @@ public class UserController {
 	@PutMapping("/update")
 	public ResponseEntity<UserDTO> updateUser(HttpServletRequest request) {
 		UserDTO userDTO = JsonUtils.bindRequestToObject(request, new TypeReference<UserDTO>() {
-		});
+		}, errMsg, errCode);
 		return new ResponseEntity<>(userService.updateUser(userDTO), HttpStatus.OK);
 	}
 

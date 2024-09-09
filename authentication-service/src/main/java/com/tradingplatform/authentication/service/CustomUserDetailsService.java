@@ -20,5 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		UserDTO userDto = userTemplate.getUserByEmailOrUsername(input);
 		return new CustomUserDetails(userDto);
 	}
-
+	
+	
 }

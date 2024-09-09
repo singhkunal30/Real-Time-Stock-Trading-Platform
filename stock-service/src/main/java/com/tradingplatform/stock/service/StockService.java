@@ -1,8 +1,18 @@
 package com.tradingplatform.stock.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
-public class StockService {
+import com.tradingplatform.common.dto.StockDTO;
 
+public interface StockService {
+
+	StockDTO createStock(StockDTO stockDTO);
+
+	StockDTO updateStock(StockDTO stockDTO);
+
+	StockDTO getStockBySymbol(String stockSymbol);
+
+	boolean deleteStockBySymbol(String stockSymbol);
+
+	List<StockDTO> getAllStocks();
 }

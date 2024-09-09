@@ -35,7 +35,7 @@ public class Portfolio {
 	private long user;
 
 	@OneToMany(mappedBy = "userPortfolio")
-	private List<PortfolioStock> portfolioStocks;
+	private List<PortfolioStock> holdings;
 
 	@CreationTimestamp
 	private Timestamp createdAt;
