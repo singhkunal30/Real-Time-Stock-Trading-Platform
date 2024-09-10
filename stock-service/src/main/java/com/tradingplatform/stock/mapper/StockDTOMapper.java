@@ -7,7 +7,7 @@ import com.tradingplatform.common.dto.StockDTO;
 import com.tradingplatform.common.mapper.BaseDTOMapper;
 import com.tradingplatform.stock.model.Stock;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValuePropertyMappingStrategy = org.mapstruct.NullValuePropertyMappingStrategy.IGNORE)
 public interface StockDTOMapper extends BaseDTOMapper<Stock, StockDTO> {
 
 }

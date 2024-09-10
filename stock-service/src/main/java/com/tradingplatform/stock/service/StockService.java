@@ -14,5 +14,5 @@ public interface StockService {
 
 	boolean deleteStockBySymbol(String stockSymbol);
 
-	List<StockDTO> getAllStocks();
+	List<StockDTO> getAllStocks(String sector, String industry);
 }

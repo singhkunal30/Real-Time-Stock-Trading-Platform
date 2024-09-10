@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import com.tradingplatform.authentication.resttemplates.InternalUserTemplate;
 import com.tradingplatform.authentication.utils.CustomUserDetails;
 import com.tradingplatform.common.dto.UserAuthDTO;
-import com.tradingplatform.common.resttemplates.InternalUserTemplate;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "baseuri.user",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.user'"
+  },
+  {
+    "name": "baseuri.authentication",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.authentication'"
+  }
+]}

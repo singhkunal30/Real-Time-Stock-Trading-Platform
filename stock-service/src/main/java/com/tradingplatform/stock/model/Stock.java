@@ -3,6 +3,8 @@ package com.tradingplatform.stock.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -53,7 +55,7 @@ public class Stock {
 	@Column(nullable = false)
 	private long totalShares;
 
-	@Column(nullable = false)
+	@UpdateTimestamp
 	private Timestamp lastUpdated;
 
 }

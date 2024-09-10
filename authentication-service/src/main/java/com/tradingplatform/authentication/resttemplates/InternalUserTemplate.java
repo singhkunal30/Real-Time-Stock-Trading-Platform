@@ -1,4 +1,4 @@
-package com.tradingplatform.common.resttemplates;
+package com.tradingplatform.authentication.resttemplates;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
