@@ -52,19 +52,19 @@ public class AuthenticationController {
 	@PostMapping("/auth")
 	public ResponseEntity<JwtToken> authenticate(HttpServletRequest request) {
 		JwtRequest jwtRequest = JsonUtils.bindRequestToObject(request, new TypeReference<JwtRequest>() {
-		});
+		}, errMsg, errCode);
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
-		} catch(CommonException ce) {
+		} catch (CommonException ce) {
 			throw ce;
 		} catch (BadCredentialsException e) {
 			throw new CommonException(errMsg.getAuthBadCredential(), errCode.getAuthBadCredential(),
 					HttpStatus.UNAUTHORIZED);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			Throwable cause = e.getCause();
-	        if (cause instanceof CommonException) {
-				throw (CommonException)cause;
+			if (cause instanceof CommonException) {
+				throw (CommonException) cause;
 			}
 			throw e;
 		}

@@ -19,7 +19,7 @@ public class PortfolioDTO {
 
 	private long userId;
 
-	private List<PortfolioStockDTO> portfolioStocks;
+	private List<PortfolioStockDTO> holdings;
 
 	private Timestamp createdAt;
 

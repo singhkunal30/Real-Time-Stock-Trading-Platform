@@ -4,11 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.tradingplatform.common.constants.ValidationMessages;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,17 +16,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserAuthDTO {
 
 	private Long userId;
 
 	private String username;
 
-	@NotBlank(message = ValidationMessages.EMAIL_REQUIRED)
 	private String email;
 
-	@NotBlank(message = ValidationMessages.PASSWORD_REQUIRED)
-	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
 	private String firstName;

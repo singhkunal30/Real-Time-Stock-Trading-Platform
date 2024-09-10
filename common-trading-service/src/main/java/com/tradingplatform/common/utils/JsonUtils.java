@@ -1,6 +1,5 @@
 package com.tradingplatform.common.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,11 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @UtilityClass
 public class JsonUtils {
-	@Autowired
-	ErrorMessage errMsg;
-	@Autowired
-	ErrorCode errCode;
-	
+
 	public String serializeClass(final Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -32,7 +27,7 @@ public class JsonUtils {
 			return null;
 		}
 	}
-	
+
 	public byte[] serializeClassToByte(final Object obj) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -42,9 +37,10 @@ public class JsonUtils {
 			return new byte[0];
 		}
 	}
-	
+
 	public static <T> T deserializeClass(String obj, TypeReference<T> typeReference) {
-		if(obj == null)return null;
+		if (obj == null)
+			return null;
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		try {
@@ -55,8 +51,9 @@ public class JsonUtils {
 			return null;
 		}
 	}
-	
-	public <T> T bindRequestToObject(HttpServletRequest request, TypeReference<T> typeReference) {
+
+	public <T> T bindRequestToObject(HttpServletRequest request, TypeReference<T> typeReference, ErrorMessage errMsg,
+			ErrorCode errCode) {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		T response = null;
@@ -65,7 +62,7 @@ public class JsonUtils {
 		} catch (Exception e) {
 			log.error("Exception at json request parsing ", e);
 			throw new CommonException(errMsg.getInvalidRequest(), errCode.getInvalidRequest(), HttpStatus.BAD_REQUEST);
-			}
+		}
 		return response;
 	}
 

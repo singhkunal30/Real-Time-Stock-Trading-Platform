@@ -14,8 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class StockDTO {
 
-	private long id;
-
 	private String stockSymbol;
 
 	private String companyName;

@@ -17,6 +17,15 @@ spring:
     hibernate:
       ddl-auto: update
 
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+
 baseuri:
   user: http://localhost:8101/api/v1/user/
+  internal-user: http://localhost:8101/api/v1/internal/
   authentication: http://localhost:8001/api/v1/authenticate/
+  
+internal:
+  user:
+    token: secret-token
