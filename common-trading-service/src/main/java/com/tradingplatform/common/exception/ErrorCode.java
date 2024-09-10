@@ -30,6 +30,7 @@ public class ErrorCode {
 	public final long stockTemplateUpdate;
 	public final long stockTemplateDelete;
 	public final long invalidRequest;
+	public final long invalidInternalAuthToken;
 
 	@Autowired
 	public ErrorCode(Environment env) {
@@ -51,5 +52,6 @@ public class ErrorCode {
 		this.stockTemplateUpdate = Long.valueOf(env.getProperty("error.code.stock.template.update"));
 		this.stockTemplateDelete = Long.valueOf(env.getProperty("error.code.stock.template.delete"));
 		this.invalidRequest = Long.valueOf(env.getProperty("error.code.invalid.request"));
+		this.invalidInternalAuthToken = Long.valueOf(env.getProperty("error.code.invalid.internal.auth.token"));
 	}
 }

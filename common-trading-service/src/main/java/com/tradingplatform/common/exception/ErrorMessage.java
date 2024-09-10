@@ -30,6 +30,7 @@ public class ErrorMessage {
 	public final String stockTemplateUpdate;
 	public final String stockTemplateDelete;
 	public final String invalidRequest;
+	public final String invalidInternalAuthToken;
 
 	@Autowired
 	public ErrorMessage(Environment env) {
@@ -51,5 +52,6 @@ public class ErrorMessage {
 		this.stockTemplateUpdate = env.getProperty("error.message.stock.template.update");
 		this.stockTemplateDelete = env.getProperty("error.message.stock.template.delete");
 		this.invalidRequest = env.getProperty("error.message.invalid.request");
+		this.invalidInternalAuthToken = env.getProperty("error.message.invalid.internal.auth.token");
 	}
 }

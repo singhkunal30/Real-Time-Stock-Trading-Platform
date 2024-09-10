@@ -2,12 +2,15 @@ package com.tradingplatform.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.tradingplatform.common.dto.UserAuthDTO;
 import com.tradingplatform.common.dto.UserDTO;
 import com.tradingplatform.common.exception.CommonException;
 import com.tradingplatform.common.exception.ErrorCode;
 import com.tradingplatform.common.exception.ErrorMessage;
+import com.tradingplatform.user.mapper.UserAuthDTOMapper;
 import com.tradingplatform.user.mapper.UserDTOMapper;
 import com.tradingplatform.user.model.User;
 import com.tradingplatform.user.repository.UserRepository;
@@ -22,10 +25,16 @@ public class UserServiceImpl implements UserService {
 	UserDTOMapper mapper;
 
 	@Autowired
+	UserAuthDTOMapper authDTOMapper;
+
+	@Autowired
 	ErrorMessage errMsg;
 
 	@Autowired
 	ErrorCode errCode;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDTO register(UserDTO userDTO) {
@@ -37,7 +46,7 @@ public class UserServiceImpl implements UserService {
 					.ifPresent(user -> new CommonException(errMsg.getUserAlreadyExist(), errCode.getUserAlreadyExist(),
 							HttpStatus.BAD_REQUEST));
 
-			userDTO.setPassword(userDTO.getPassword());
+			userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 			User user = mapper.toEntity(userDTO);
 			User savedUser = userRepository.save(user);
 
@@ -84,5 +93,13 @@ public class UserServiceImpl implements UserService {
 				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + value,
 						errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
 		return mapper.toDto(user);
+	}
+
+	@Override
+	public UserAuthDTO getUser(String value) {
+		User user = userRepository.findByEmailOrUsername(value, value)
+				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + value,
+						errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
+		return authDTOMapper.toDto(user);
 	}
 }

@@ -7,32 +7,33 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.tradingplatform.common.dto.UserDTO;
+import com.tradingplatform.common.dto.UserAuthDTO;
 
 @SuppressWarnings("serial")
 public class CustomUserDetails implements UserDetails {
 
-	private UserDTO userDto;
+	private UserAuthDTO userAuthDto;
 
-	public CustomUserDetails(UserDTO userDto) {
-		this.userDto = userDto;
+	public CustomUserDetails(UserAuthDTO userAuthDto) {
+		this.userAuthDto = userAuthDto;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return userDto.getRoles().stream().map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toSet());
+		return userAuthDto.getRoles().stream().map(role -> new SimpleGrantedAuthority(role))
+				.collect(Collectors.toSet());
 	}
 
 	@Override
 	public String getPassword() {
-		return userDto.getPassword();
+		return userAuthDto.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		if (userDto.getUsername().isEmpty())
-			return userDto.getEmail();
-		return userDto.getUsername();
+		if (userAuthDto.getUsername().isEmpty())
+			return userAuthDto.getEmail();
+		return userAuthDto.getUsername();
 	}
 
 	@Override
