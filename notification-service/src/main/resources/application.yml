@@ -1,12 +1,12 @@
 server:
   servlet:
     context-path: /api/v1
-  port: 8102
+  port: 8107
 spring:
   application:
-    name: stock-service
+    name: notification-service
   datasource:
-      url: jdbc:postgresql://localhost:5432/STOCK_SERVICE
+      url: jdbc:postgresql://localhost:5432/NOTIFICATION_SERVICE
       username: postgres
       password: root
   jpa:

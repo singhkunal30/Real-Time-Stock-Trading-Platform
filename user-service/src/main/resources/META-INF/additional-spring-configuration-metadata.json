@@ -18,5 +18,10 @@
     "name": "internal.user.token",
     "type": "java.lang.String",
     "description": "A description for 'internal.user.token'"
+  },
+  {
+    "name": "baseuri.stock",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.stock'"
   }
 ]}

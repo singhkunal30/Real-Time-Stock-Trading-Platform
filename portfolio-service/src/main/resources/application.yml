@@ -1,12 +1,12 @@
 server:
   servlet:
     context-path: /api/v1
-  port: 8102
+  port: 8105
 spring:
   application:
-    name: stock-service
+    name: portfolio-service
   datasource:
-      url: jdbc:postgresql://localhost:5432/STOCK_SERVICE
+      url: jdbc:postgresql://localhost:5432/PORTFOLIO_SERVICE
       username: postgres
       password: root
   jpa:
@@ -16,7 +16,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-
+      
 baseuri:
   authentication: http://localhost:8001/api/v1/authenticate/
   user: http://localhost:8101/api/v1/user/

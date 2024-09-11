@@ -28,5 +28,35 @@
     "name": "baseuri.internal-user",
     "type": "java.lang.String",
     "description": "A description for 'baseuri.internal-user'"
+  },
+  {
+    "name": "baseuri.trading",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.trading'"
+  },
+  {
+    "name": "baseuri.stock",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.stock'"
+  },
+  {
+    "name": "baseuri.portfolio",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.portfolio'"
+  },
+  {
+    "name": "baseuri.notification",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.notification'"
+  },
+  {
+    "name": "baseuri.market-data",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.market-data'"
+  },
+  {
+    "name": "baseuri.order-matching",
+    "type": "java.lang.String",
+    "description": "A description for 'baseuri.order-matching'"
   }
 ]}
