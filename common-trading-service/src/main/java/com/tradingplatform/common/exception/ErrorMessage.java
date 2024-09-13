@@ -12,46 +12,32 @@ import lombok.Getter;
 @PropertySource("classpath:error.properties")
 public class ErrorMessage {
 
-	public final String authBadCredential;
-	public final String authInvalidToken;
-	public final String authEmptyPassword;
-	public final String userNotFound;
-	public final String userListEmpty;
-	public final String userAlreadyExist;
-	public final String userTemplateFetchData;
-	public final String userTemplateCreate;
-	public final String userTemplateUpdate;
-	public final String userTemplateDelete;
-	public final String stockNotFound;
-	public final String stockListEmpty;
-	public final String stockAlreadyExist;
-	public final String stockTemplateFetchData;
-	public final String stockTemplateCreate;
-	public final String stockTemplateUpdate;
-	public final String stockTemplateDelete;
-	public final String invalidRequest;
-	public final String invalidInternalAuthToken;
+    public final String badCredential;
+    public final String invalidToken;
+    public final String emptyPassword;
+    public final String resourceNotFound;
+    public final String resourceListEmpty;
+    public final String resourceAlreadyExist;
+    public final String templateFetchData;
+    public final String templateCreate;
+    public final String templateUpdate;
+    public final String templateDelete;
+    public final String invalidRequest;
+    public final String internalError;
 
-	@Autowired
-	public ErrorMessage(Environment env) {
-		this.authBadCredential = env.getProperty("error.message.auth.bad.credential");
-		this.authInvalidToken = env.getProperty("error.message.jwt.invalid.token");
-		this.authEmptyPassword = env.getProperty("error.message.auth.empty.password");
-		this.userNotFound = env.getProperty("error.message.user.not.found");
-		this.userListEmpty = env.getProperty("error.message.user.list.empty");
-		this.userAlreadyExist = env.getProperty("error.message.user.already.exist");
-		this.userTemplateFetchData = env.getProperty("error.message.user.template.fetch.data");
-		this.userTemplateCreate = env.getProperty("error.message.user.template.create");
-		this.userTemplateUpdate = env.getProperty("error.message.user.template.update");
-		this.userTemplateDelete = env.getProperty("error.message.user.template.delete");
-		this.stockNotFound = env.getProperty("error.message.stock.not.found");
-		this.stockListEmpty = env.getProperty("error.message.stock.list.empty");
-		this.stockAlreadyExist = env.getProperty("error.message.stock.already.exist");
-		this.stockTemplateFetchData = env.getProperty("error.message.stock.template.fetch.data");
-		this.stockTemplateCreate = env.getProperty("error.message.stock.template.create");
-		this.stockTemplateUpdate = env.getProperty("error.message.stock.template.update");
-		this.stockTemplateDelete = env.getProperty("error.message.stock.template.delete");
-		this.invalidRequest = env.getProperty("error.message.invalid.request");
-		this.invalidInternalAuthToken = env.getProperty("error.message.invalid.internal.auth.token");
-	}
+    @Autowired
+    public ErrorMessage(Environment env) {
+        this.badCredential = env.getProperty("error.message.bad.credential");
+        this.invalidToken = env.getProperty("error.message.invalid.token");
+        this.emptyPassword = env.getProperty("error.message.empty.password");
+        this.resourceNotFound = env.getProperty("error.message.resource.not.found");
+        this.resourceListEmpty = env.getProperty("error.message.resource.list.empty");
+        this.resourceAlreadyExist = env.getProperty("error.message.resource.already.exist");
+        this.templateFetchData = env.getProperty("error.message.template.fetch.data");
+        this.templateCreate = env.getProperty("error.message.template.create");
+        this.templateUpdate = env.getProperty("error.message.template.update");
+        this.templateDelete = env.getProperty("error.message.template.delete");
+        this.invalidRequest = env.getProperty("error.message.invalid.request");
+        this.internalError = env.getProperty("error.message.internal.error");
+    }
 }

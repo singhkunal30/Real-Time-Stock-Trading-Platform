@@ -59,8 +59,7 @@ public class AuthenticationController {
 		} catch (CommonException ce) {
 			throw ce;
 		} catch (BadCredentialsException e) {
-			throw new CommonException(errMsg.getAuthBadCredential(), errCode.getAuthBadCredential(),
-					HttpStatus.UNAUTHORIZED);
+			throw new CommonException(errMsg.getBadCredential(), errCode.getBadCredential(), HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			Throwable cause = e.getCause();
 			if (cause instanceof CommonException) {
@@ -71,8 +70,8 @@ public class AuthenticationController {
 
 		UserDetails user = userDetailsService.loadUserByUsername(jwtRequest.getUsername());
 		if (user == null) {
-			throw new CommonException(errMsg.getUserNotFound() + " " + jwtRequest.getUsername(),
-					errCode.getUserNotFound(), HttpStatus.NOT_FOUND);
+			throw new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
+					HttpStatus.NOT_FOUND);
 		}
 
 		JwtToken token = new JwtToken(jwtService.generateToken(user));

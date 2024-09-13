@@ -39,8 +39,8 @@ public class StockServiceImpl implements StockService {
 		try {
 			Stock stock = mapper.toEntity(stockDTO);
 			stockRepository.findById(stockDTO.getStockSymbol()).ifPresent(existingStock -> {
-				throw new CommonException(errMsg.getStockAlreadyExist() + " " + stockDTO.getStockSymbol(),
-						errCode.getStockAlreadyExist(), HttpStatus.BAD_REQUEST);
+				throw new CommonException(errMsg.getResourceAlreadyExist(), errCode.getResourceAlreadyExist(),
+						HttpStatus.BAD_REQUEST);
 			});
 			Stock savedStock = stockRepository.save(stock);
 			return mapper.toDto(savedStock);
@@ -58,8 +58,8 @@ public class StockServiceImpl implements StockService {
 		try {
 			String stockSymbol = stockDTO.getStockSymbol();
 			Stock existingStock = stockRepository.findById(stockSymbol)
-					.orElseThrow(() -> new CommonException(errMsg.getStockNotFound() + " " + stockSymbol,
-							errCode.getStockNotFound(), HttpStatus.NOT_FOUND));
+					.orElseThrow(() -> new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
+							HttpStatus.NOT_FOUND));
 
 			mapper.updateEntityFromDto(stockDTO, existingStock);
 			Stock updatedStock = stockRepository.save(existingStock);
@@ -77,8 +77,8 @@ public class StockServiceImpl implements StockService {
 	public StockDTO getStockBySymbol(String stockSymbol) {
 		try {
 			Stock stock = stockRepository.findById(stockSymbol)
-					.orElseThrow(() -> new CommonException(errMsg.getStockNotFound() + " " + stockSymbol,
-							errCode.getStockNotFound(), HttpStatus.NOT_FOUND));
+					.orElseThrow(() -> new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
+							HttpStatus.NOT_FOUND));
 			return mapper.toDto(stock);
 		} catch (CommonException ce) {
 			log.error("CommonException occurred while fetching stock by symbol: {}", ce.getMessage());
@@ -93,8 +93,8 @@ public class StockServiceImpl implements StockService {
 	public boolean deleteStockBySymbol(String stockSymbol) {
 		try {
 			Stock stock = stockRepository.findById(stockSymbol)
-					.orElseThrow(() -> new CommonException(errMsg.getStockNotFound() + " " + stockSymbol,
-							errCode.getStockNotFound(), HttpStatus.NOT_FOUND));
+					.orElseThrow(() -> new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
+							HttpStatus.NOT_FOUND));
 			stockRepository.delete(stock);
 			return stockRepository.findById(stockSymbol).isEmpty();
 		} catch (CommonException ce) {
@@ -114,7 +114,8 @@ public class StockServiceImpl implements StockService {
 
 			List<Stock> stocks = stockRepository.findAll(specification);
 			if (stocks.isEmpty()) {
-				throw new CommonException(errMsg.stockListEmpty, errCode.stockListEmpty, HttpStatus.NOT_FOUND);
+				throw new CommonException(errMsg.getResourceListEmpty(), errCode.getResourceListEmpty(),
+						HttpStatus.NOT_FOUND);
 			}
 			return mapper.toDtoList(stocks);
 		} catch (CommonException ce) {
@@ -127,6 +128,6 @@ public class StockServiceImpl implements StockService {
 	}
 
 	private CommonException handleUnexpectedException(Exception e) {
-		return new CommonException(e.getMessage(), errCode.getUnexpectedError(), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new CommonException(e.getMessage(), errCode.getInvalidRequest(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

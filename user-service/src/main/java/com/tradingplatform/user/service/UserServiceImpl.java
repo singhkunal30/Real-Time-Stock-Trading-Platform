@@ -40,11 +40,11 @@ public class UserServiceImpl implements UserService {
 	public UserDTO register(UserDTO userDTO) {
 		try {
 			userRepository.findByEmail(userDTO.getEmail())
-					.ifPresent(user -> new CommonException(errMsg.getUserAlreadyExist(), errCode.getUserAlreadyExist(),
-							HttpStatus.BAD_REQUEST));
+					.ifPresent(user -> new CommonException(errMsg.getResourceAlreadyExist(),
+							errCode.getResourceAlreadyExist(), HttpStatus.BAD_REQUEST));
 			userRepository.findByUsername(userDTO.getUsername())
-					.ifPresent(user -> new CommonException(errMsg.getUserAlreadyExist(), errCode.getUserAlreadyExist(),
-							HttpStatus.BAD_REQUEST));
+					.ifPresent(user -> new CommonException(errMsg.getResourceAlreadyExist(),
+							errCode.getResourceAlreadyExist(), HttpStatus.BAD_REQUEST));
 
 			userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 			User user = mapper.toEntity(userDTO);
@@ -60,9 +60,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO getUserById(long id) {
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + id, errCode.getUserNotFound(),
-						HttpStatus.NOT_FOUND));
+		User user = userRepository.findById(id).orElseThrow(() -> new CommonException(errMsg.getResourceNotFound(),
+				errCode.getResourceNotFound(), HttpStatus.NOT_FOUND));
 		return mapper.toDto(user);
 	}
 
@@ -70,8 +69,8 @@ public class UserServiceImpl implements UserService {
 	public UserDTO updateUser(UserDTO userDTO) {
 		long id = userDTO.getUserId();
 		User existingUser = userRepository.findById(id)
-				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + userDTO.getUserId(),
-						errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
+				.orElseThrow(() -> new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
+						HttpStatus.NOT_FOUND));
 		userDTO.setPassword(existingUser.getPassword());
 		mapper.updateEntityFromDto(userDTO, existingUser);
 		User updatedUser = userRepository.save(existingUser);
@@ -80,9 +79,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean removeUser(long id) {
-		User user = userRepository.findById(id)
-				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + id, errCode.getUserNotFound(),
-						HttpStatus.NOT_FOUND));
+		User user = userRepository.findById(id).orElseThrow(() -> new CommonException(errMsg.getResourceNotFound(),
+				errCode.getResourceNotFound(), HttpStatus.NOT_FOUND));
 		userRepository.delete(user);
 		return userRepository.findById(id).isEmpty();
 	}
@@ -90,16 +88,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO getUserByEmailOrUsername(String value) {
 		User user = userRepository.findByEmailOrUsername(value, value)
-				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + value,
-						errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
+				.orElseThrow(() -> new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
+						HttpStatus.NOT_FOUND));
 		return mapper.toDto(user);
 	}
 
 	@Override
 	public UserAuthDTO getUser(String value) {
 		User user = userRepository.findByEmailOrUsername(value, value)
-				.orElseThrow(() -> new CommonException(errMsg.getUserNotFound() + " " + value,
-						errCode.getUserNotFound(), HttpStatus.NOT_FOUND));
+				.orElseThrow(() -> new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
+						HttpStatus.NOT_FOUND));
 		return authDTOMapper.toDto(user);
 	}
 }
