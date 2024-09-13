@@ -43,18 +43,17 @@ public class InternalUserTemplate {
 			ResponseEntity<UserAuthDTO> response = restTemplate.exchange(url, HttpMethod.GET, request,
 					UserAuthDTO.class);
 			if (response.getStatusCode() == HttpStatus.OK && response.getBody() == null) {
-				throw new CommonException(errMsg.getUserNotFound() + " " + value, errCode.getUserNotFound(),
+				throw new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
 						HttpStatus.NOT_FOUND);
 			}
 			return response.getBody();
 		} catch (HttpClientErrorException.NotFound e) {
-			throw new CommonException(errMsg.getUserNotFound() + " " + value, errCode.getUserNotFound(),
+			throw new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
 					HttpStatus.NOT_FOUND);
 		} catch (HttpClientErrorException.Unauthorized e) {
-			throw new CommonException(errMsg.getInvalidInternalAuthToken(), errCode.getInvalidInternalAuthToken(),
-					HttpStatus.UNAUTHORIZED);
+			throw new CommonException(errMsg.getInvalidToken(), errCode.getInvalidToken(), HttpStatus.UNAUTHORIZED);
 		} catch (RestClientException e) {
-			throw new CommonException(errMsg.getUserTemplateFetchData(), errCode.getUserTemplateFetchData(),
+			throw new CommonException(errMsg.getTemplateFetchData(), errCode.getTemplateFetchData(),
 					HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}

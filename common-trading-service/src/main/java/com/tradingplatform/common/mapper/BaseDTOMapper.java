@@ -14,5 +14,5 @@ public interface BaseDTOMapper<E, D> {
 
 	List<E> toEntityList(List<D> dtoList);
 
-	void updateEntityFromDto(D d, @MappingTarget E e);
+	E updateEntityFromDto(D d, @MappingTarget E e);
 }

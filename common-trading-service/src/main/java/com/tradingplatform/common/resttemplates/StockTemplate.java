@@ -36,12 +36,12 @@ public class StockTemplate {
 		try {
 			ResponseEntity<UserDTO> response = restTemplate.exchange(url, HttpMethod.GET, null, UserDTO.class);
 			if (response.getBody() == null) {
-				throw new CommonException(errMsg.getUserNotFound() + " " + userId, errCode.getUserNotFound(),
+				throw new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
 						HttpStatus.NOT_FOUND);
 			}
 			return response.getBody();
 		} catch (RestClientException e) {
-			throw new CommonException(errMsg.getUserTemplateFetchData(), errCode.getUserTemplateFetchData(),
+			throw new CommonException(errMsg.getTemplateFetchData(), errCode.getTemplateFetchData(),
 					HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
@@ -51,17 +51,17 @@ public class StockTemplate {
 		try {
 			ResponseEntity<UserDTO> response = restTemplate.exchange(url, HttpMethod.GET, null, UserDTO.class);
 			if (response.getStatusCode() == HttpStatus.OK && response.getBody() == null) {
-				throw new CommonException(errMsg.getUserNotFound() + " " + value, errCode.getUserNotFound(),
+				throw new CommonException(errMsg.getResourceNotFound(), errCode.getResourceNotFound(),
 						HttpStatus.NOT_FOUND);
 			}
 
 			return response.getBody();
 		} catch (HttpClientErrorException.NotFound e) {
-			throw new CommonException(errMsg.getUserNotFound() + " " + value, errCode.getUserNotFound(),
+			throw new CommonException(errMsg.getResourceNotFound() + " " + value, errCode.getResourceNotFound(),
 					HttpStatus.NOT_FOUND);
 
 		} catch (RestClientException e) {
-			throw new CommonException(errMsg.getUserTemplateFetchData(), errCode.getUserTemplateFetchData(),
+			throw new CommonException(errMsg.getTemplateFetchData(), errCode.getTemplateFetchData(),
 					HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
@@ -74,7 +74,7 @@ public class StockTemplate {
 					UserDTO.class);
 			return response.getBody();
 		} catch (RestClientException e) {
-			throw new CommonException(errMsg.getUserTemplateCreate(), errCode.getUserTemplateCreate(),
+			throw new CommonException(errMsg.getTemplateCreate(), errCode.getTemplateCreate(),
 					HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
@@ -86,7 +86,7 @@ public class StockTemplate {
 			ResponseEntity<UserDTO> response = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, UserDTO.class);
 			return response.getBody();
 		} catch (RestClientException e) {
-			throw new CommonException(errMsg.getUserTemplateUpdate(), errCode.getUserTemplateUpdate(),
+			throw new CommonException(errMsg.getTemplateUpdate(), errCode.getTemplateUpdate(),
 					HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}
@@ -97,7 +97,7 @@ public class StockTemplate {
 			ResponseEntity<Boolean> response = restTemplate.exchange(url, HttpMethod.DELETE, null, Boolean.class);
 			return response.getBody();
 		} catch (RestClientException e) {
-			throw new CommonException(errMsg.getUserTemplateDelete(), errCode.getUserTemplateDelete(),
+			throw new CommonException(errMsg.getTemplateDelete(), errCode.getTemplateDelete(),
 					HttpStatus.SERVICE_UNAVAILABLE);
 		}
 	}

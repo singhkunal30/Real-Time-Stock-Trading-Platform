@@ -7,8 +7,10 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,10 +33,10 @@ public class Portfolio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long portfolioId;
 
-	@Column(name = "userId", nullable = false)
-	private long user;
+	@Column(name = "user_id", nullable = false, unique = true)
+	private long userId;
 
-	@OneToMany(mappedBy = "userPortfolio")
+	@OneToMany(mappedBy = "portfolioId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PortfolioStock> holdings;
 
 	@CreationTimestamp
