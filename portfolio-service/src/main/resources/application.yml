@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /api/v1
-  port: 8105
+  port: 8104
 spring:
   application:
     name: portfolio-service

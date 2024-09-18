@@ -32,7 +32,9 @@ public class TradeExecution {
 	private TradeOrder tradeOrder;
 
 	private BigDecimal executionPrice;
+	
 	private BigDecimal executionQuantity;
+	
 	private Timestamp executionDate;
 
 }
