@@ -38,7 +38,7 @@ public class TradeOrder {
 
 	private long userId;
 
-	private String stockSymbols;
+	private String stockSymbol;
 
 	private long quantity;
 

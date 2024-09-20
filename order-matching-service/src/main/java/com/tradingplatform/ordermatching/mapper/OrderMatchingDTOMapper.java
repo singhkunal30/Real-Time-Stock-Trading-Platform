@@ -7,7 +7,7 @@ import com.tradingplatform.common.dto.OrderBookDTO;
 import com.tradingplatform.common.mapper.BaseDTOMapper;
 import com.tradingplatform.ordermatching.model.OrderBook;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValuePropertyMappingStrategy = org.mapstruct.NullValuePropertyMappingStrategy.IGNORE)
 public interface OrderMatchingDTOMapper extends BaseDTOMapper<OrderBook, OrderBookDTO> {
 
 }

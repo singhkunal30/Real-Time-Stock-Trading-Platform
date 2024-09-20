@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,15 +13,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class TradeExecutionDTO {
 
 	private long executionId;
 
-	private long tradeOrder;
+	private TradeOrderDTO tradeOrder;
 
 	private BigDecimal executionPrice;
 
-	private BigDecimal executionQuantity;
+	private long executionQuantity;
 
 	private Timestamp executionDate;
 

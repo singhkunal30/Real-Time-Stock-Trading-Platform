@@ -16,6 +16,16 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: order-matching-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
       
 baseuri:
   authentication: http://localhost:8001/api/v1/authenticate/
@@ -26,3 +36,5 @@ baseuri:
   order-matching: http://localhost:8105/api/v1/order-matching/
   market-data: http://localhost:8106/api/v1/market-data/
   notification: http://localhost:8107/api/v1/notification/
+
+ 

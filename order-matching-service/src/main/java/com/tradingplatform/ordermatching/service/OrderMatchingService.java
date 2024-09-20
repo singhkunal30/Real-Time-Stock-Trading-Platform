@@ -1,8 +1,15 @@
 package com.tradingplatform.ordermatching.service;
 
-import org.springframework.stereotype.Service;
+import com.tradingplatform.common.dto.TradeOrderDTO;
 
-@Service
-public class OrderMatchingService {
+public interface OrderMatchingService {
+
+	void handleOrderPlacement(TradeOrderDTO tradeOrderDTO);
+
+	void handleOrderCancellation(TradeOrderDTO tradeOrderDTO);
+
+	void persistOrderBooks();
+
+	void recoverOrderBooks();
 
 }
