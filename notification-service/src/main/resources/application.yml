@@ -26,3 +26,13 @@ baseuri:
   order-matching: http://localhost:8105/api/v1/order-matching/
   market-data: http://localhost:8106/api/v1/market-data/
   notification: http://localhost:8107/api/v1/notification/
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
