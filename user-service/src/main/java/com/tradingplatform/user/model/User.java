@@ -11,6 +11,7 @@ import com.tradingplatform.common.enums.Role;
 import com.tradingplatform.common.validators.annotations.ValidEmail;
 import com.tradingplatform.common.validators.annotations.ValidPassword;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -21,6 +22,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -68,4 +70,7 @@ public class User {
 	@CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
 	@Column(name = "role")
 	private Set<Role> roles;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private RefreshToken refreshToken;
 }

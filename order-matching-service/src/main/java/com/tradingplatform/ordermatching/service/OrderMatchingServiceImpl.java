@@ -5,6 +5,7 @@ import java.util.PriorityQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -44,7 +45,10 @@ public class OrderMatchingServiceImpl implements OrderMatchingService {
 	@Autowired
 	private ErrorCode errCode;
 
-	@KafkaListener(topics = TradingConstants.PLACE_ORDER_TOPIC)
+	@Value("${spring.kafka.consumer.group-id}")
+	private String groupId;
+
+	@KafkaListener(topics = TradingConstants.PLACE_ORDER_TOPIC, groupId = "{#groupId}")
 	public void handleOrderPlacement(TradeOrderDTO tradeOrderDTO) {
 		try {
 			OrderBook orderBook = orderBooks.computeIfAbsent(tradeOrderDTO.getStockSymbol(), symbol -> new OrderBook());
@@ -68,7 +72,7 @@ public class OrderMatchingServiceImpl implements OrderMatchingService {
 		}
 	}
 
-	@KafkaListener(topics = TradingConstants.CANCEL_ORDER_TOPIC)
+	@KafkaListener(topics = TradingConstants.CANCEL_ORDER_TOPIC, groupId = "{#groupId}")
 	public void handleOrderCancellation(TradeOrderDTO tradeOrderDTO) {
 		try {
 			OrderBook orderBook = orderBooks.get(tradeOrderDTO.getStockSymbol());

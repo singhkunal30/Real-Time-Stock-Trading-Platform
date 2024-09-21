@@ -12,5 +12,5 @@ public interface TradeOrderRepository extends JpaRepository<TradeOrder, Long> {
 
 	List<TradeOrder> findByUserId(long userId);
 
-	List<TradeOrder> findByStockSymbolsContaining(String stockSymbol);
+	List<TradeOrder> findByStockSymbolContaining(String stockSymbol);
 }

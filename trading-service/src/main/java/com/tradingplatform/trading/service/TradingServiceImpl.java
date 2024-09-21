@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -50,6 +51,9 @@ public class TradingServiceImpl implements TradingService {
 
 	@Autowired
 	private ErrorMessage errMsg;
+
+	@Value("${spring.kafka.consumer.group-id}")
+	private String groupId;
 
 	@Override
 	@Transactional
@@ -109,7 +113,7 @@ public class TradingServiceImpl implements TradingService {
 
 	@Override
 	@Transactional
-	@KafkaListener(topics = { TradingConstants.UPDATE_ORDER_TOPIC })
+	@KafkaListener(topics = { TradingConstants.UPDATE_ORDER_TOPIC }, groupId = "{#groupId}")
 	public TradeOrderDTO updateTradeOrder(TradeOrderDTO tradeOrderDTO) {
 		try {
 			TradeOrder existingOrder = tradeOrderRepository.findById(tradeOrderDTO.getOrderId())
@@ -130,7 +134,7 @@ public class TradingServiceImpl implements TradingService {
 	@Override
 	@Transactional
 	@KafkaListener(topics = { TradingConstants.EXECUTE_BUY_TRADE_ORDER_TOPIC,
-			TradingConstants.EXECUTE_SELL_TRADE_ORDER_TOPIC })
+			TradingConstants.EXECUTE_SELL_TRADE_ORDER_TOPIC }, groupId = "{#groupId}")
 	public TradeExecutionDTO executeTradeOrder(TradeExecutionDTO executionDTO) {
 		try {
 			TradeExecution tradeExecution = tradeExecutionMapper.toEntity(executionDTO);
@@ -156,7 +160,7 @@ public class TradingServiceImpl implements TradingService {
 	@Override
 	public List<TradeOrderDTO> getTradeOrdersByStockSymbol(String stockSymbol) {
 		try {
-			List<TradeOrder> tradeOrders = tradeOrderRepository.findByStockSymbolsContaining(stockSymbol);
+			List<TradeOrder> tradeOrders = tradeOrderRepository.findByStockSymbolContaining(stockSymbol);
 			return tradeOrderMapper.toDtoList(tradeOrders);
 		} catch (Exception e) {
 			log.error("An error occurred while fetching trade orders by stock symbol: {}", e.getMessage());
