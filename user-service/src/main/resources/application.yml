@@ -1,47 +1,51 @@
-server:
-  servlet:
-    context-path: /api/v1
-  port: 8101
+#Config Server
 spring:
   application:
     name: user-service
-  datasource:
-      url: jdbc:postgresql://localhost:5432/USER_SERVICE
-      username: postgres
-      password: root
-  jpa:
-    show-sql: true
-    properties:
-      hibernate: 
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
-
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-
-
-baseuri:
-  authentication: http://localhost:8001/api/v1/authenticate/
-  internal-user: http://localhost:8101/api/v1/internal/
-  user: http://localhost:8101/api/v1/user/
-  stock: http://localhost:8102/api/v1/stocks/
-  trading: http://localhost:8103/api/v1/trading/
-  portfolio: http://localhost:8104/api/v1/portfolio/
-  order-matching: http://localhost:8105/api/v1/order-matching/
-  market-data: http://localhost:8106/api/v1/market-data/
-  notification: http://localhost:8107/api/v1/notification/
-  
-internal:
-  user:
-    token: secret-token
-    
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    fetch-registry: true
-    register-with-eureka: true
-  instance:
-    prefer-ip-address: true
-    hostname: localhost
+  config:
+    import: configserver:http://localhost:8888
+#Local
+#  datasource:
+#      url: jdbc:postgresql://localhost:5432/USER_SERVICE
+#      username: postgres
+#      password: root
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate: 
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: update
+#
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#
+#server:
+#  servlet:
+#    context-path: /api/v1
+#  port: 8101
+#
+#baseuri:
+#  authentication: http://localhost:8001/api/v1/authenticate/
+#  internal-user: http://localhost:8101/api/v1/internal/
+#  user: http://localhost:8101/api/v1/user/
+#  stock: http://localhost:8102/api/v1/stocks/
+#  trading: http://localhost:8103/api/v1/trading/
+#  portfolio: http://localhost:8104/api/v1/portfolio/
+#  order-matching: http://localhost:8105/api/v1/order-matching/
+#  market-data: http://localhost:8106/api/v1/market-data/
+#  notification: http://localhost:8107/api/v1/notification/
+#  
+#internal:
+#  user:
+#    token: secret-token
+#    
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#    fetch-registry: true
+#    register-with-eureka: true
+#  instance:
+#    prefer-ip-address: true
+#    hostname: localhost

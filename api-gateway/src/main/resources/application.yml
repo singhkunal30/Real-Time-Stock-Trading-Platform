@@ -1,60 +1,63 @@
+#Config Server
 spring:
   application:
     name: api-gateway
-
-  cloud:
-    gateway:
-      mvc:
-        routes:
-          - id: authentication-service
-            uri: lb://authentication-service
-            predicates:
-              - Path=/api/v1/auth/**
-              
-          - id: market-data-service
-            uri: lb://market-data-service
-            predicates:
-              - Path=/api/v1/market-data/**
-              
-          - id: notification-service
-            uri: lb://notification-service
-            predicates:
-              - Path=/api/v1/notification/**
-              
-          - id: order-matching-service
-            uri: lb://order-matching-service
-            predicates:
-              - Path=/api/v1/orderMatching/**
-              
-          - id: portfolio-service
-            uri: lb://portfolio-service
-            predicates:
-              - Path=/api/v1/portfolio/**
-              
-          - id: stock-service
-            uri: lb://stock-service
-            predicates:
-              - Path=/api/v1/stocks/**
-          
-          - id: trading-service
-            uri: lb://trading-service
-            predicates:
-              - Path=/api/v1/trading/**
-
-          - id: user-service
-            uri: lb://user-service
-            predicates:
-              - Path=/api/v1/user/**                  
-
-server:
-  port: 8200
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    fetch-registry: true
-    register-with-eureka: true
-  instance:
-    prefer-ip-address: true
-    hostname: localhost 
+  config:
+    import: configserver:http://localhost:8888
+#Local
+#  cloud:
+#    gateway:
+#      mvc:
+#        routes:
+#          - id: authentication-service
+#            uri: lb://authentication-service
+#            predicates:
+#              - Path=/api/v1/auth/**
+#              
+#          - id: market-data-service
+#            uri: lb://market-data-service
+#            predicates:
+#              - Path=/api/v1/market-data/**
+#              
+#          - id: notification-service
+#            uri: lb://notification-service
+#            predicates:
+#              - Path=/api/v1/notification/**
+#              
+#          - id: order-matching-service
+#            uri: lb://order-matching-service
+#            predicates:
+#              - Path=/api/v1/orderMatching/**
+#              
+#          - id: portfolio-service
+#            uri: lb://portfolio-service
+#            predicates:
+#              - Path=/api/v1/portfolio/**
+#              
+#          - id: stock-service
+#            uri: lb://stock-service
+#            predicates:
+#              - Path=/api/v1/stocks/**
+#          
+#          - id: trading-service
+#            uri: lb://trading-service
+#            predicates:
+#              - Path=/api/v1/trading/**
+#
+#          - id: user-service
+#            uri: lb://user-service
+#            predicates:
+#              - Path=/api/v1/user/**                  
+#
+#server:
+#  port: 8200
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#    fetch-registry: true
+#    register-with-eureka: true
+#  instance:
+#    prefer-ip-address: true
+#    hostname: localhost 
