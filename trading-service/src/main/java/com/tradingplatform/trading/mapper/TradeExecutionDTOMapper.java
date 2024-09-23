@@ -7,7 +7,7 @@ import com.tradingplatform.common.dto.TradeExecutionDTO;
 import com.tradingplatform.common.mapper.BaseDTOMapper;
 import com.tradingplatform.trading.model.TradeExecution;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface TradeExecutionDTOMapper extends BaseDTOMapper<TradeExecution, TradeExecutionDTO> {
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValuePropertyMappingStrategy = org.mapstruct.NullValuePropertyMappingStrategy.IGNORE)
+public abstract class TradeExecutionDTOMapper implements BaseDTOMapper<TradeExecution, TradeExecutionDTO> {
 
 }

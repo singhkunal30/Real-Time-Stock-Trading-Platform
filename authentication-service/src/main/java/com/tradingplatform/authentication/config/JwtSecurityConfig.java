@@ -31,7 +31,8 @@ public class JwtSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf((csrf) -> csrf.disable()).authorizeHttpRequests((auth) -> {
-			auth.requestMatchers("/authenticate/**").permitAll().anyRequest().authenticated();
+			auth.requestMatchers("/authenticate/**").permitAll().requestMatchers("/user/refresh-token").permitAll()
+					.anyRequest().authenticated();
 		}).authenticationProvider(authenticationProvider()).sessionManagement((session) -> {
 			session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		}).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

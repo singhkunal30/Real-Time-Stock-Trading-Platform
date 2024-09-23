@@ -32,26 +32,23 @@ public class PortfolioController {
 	}
 
 	@GetMapping("/{portfolioId}")
-	public ResponseEntity<Optional<PortfolioDTO>> getPortfolioById(@PathVariable long portfolioId) {
+	public ResponseEntity<PortfolioDTO> getPortfolioById(@PathVariable long portfolioId) {
 		Optional<PortfolioDTO> portfolioDTO = portfolioService.getPortfolioById(portfolioId);
-		return portfolioDTO.isPresent() ? new ResponseEntity<>(portfolioDTO, HttpStatus.OK)
-				: new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return portfolioDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@GetMapping("/user/{userId}")
-	public ResponseEntity<Optional<PortfolioDTO>> getUserPortfolio(@PathVariable long userId) {
+	public ResponseEntity<PortfolioDTO> getUserPortfolio(@PathVariable long userId) {
 		Optional<PortfolioDTO> portfolioDTO = portfolioService.getUserPortfolio(userId);
-		return portfolioDTO.isPresent() ? new ResponseEntity<>(portfolioDTO, HttpStatus.OK)
-				: new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return portfolioDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/user/{userId}/{portfolioStockId}")
-	public ResponseEntity<Optional<PortfolioStockDTO>> getUserPortfolioStock(@PathVariable long userId,
+	@GetMapping("/user/{userId}/stocks/{portfolioStockId}")
+	public ResponseEntity<PortfolioStockDTO> getUserPortfolioStock(@PathVariable long userId,
 			@PathVariable long portfolioStockId) {
 		Optional<PortfolioStockDTO> portfolioStockDTO = portfolioService.getUserPortfolioStock(userId,
 				portfolioStockId);
-		return portfolioStockDTO.isPresent() ? new ResponseEntity<>(portfolioStockDTO, HttpStatus.OK)
-				: new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return portfolioStockDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@PutMapping

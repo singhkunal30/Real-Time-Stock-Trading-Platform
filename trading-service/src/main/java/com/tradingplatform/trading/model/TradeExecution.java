@@ -3,6 +3,8 @@ package com.tradingplatform.trading.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +34,10 @@ public class TradeExecution {
 	private TradeOrder tradeOrder;
 
 	private BigDecimal executionPrice;
-	private BigDecimal executionQuantity;
+
+	private long executionQuantity;
+
+	@CreationTimestamp
 	private Timestamp executionDate;
 
 }

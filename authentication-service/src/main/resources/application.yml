@@ -1,26 +1,41 @@
-server:
-  servlet:
-    context-path: /api/v1
-  port: 8001
+#Config Server
 spring:
   application:
     name: authentication-service
+  config:
+    import: configserver:http://localhost:8888
+#Local
+#server:
+#  servlet:
+#    context-path: /api/v1
+#  port: 8001
+#
 security:
   jwt:
     secret-key: 357638792F423F4428472B4B6250655368566D597133743677397A2443264629
-    expiration-time: 3600000
-    
-baseuri:
-  authentication: http://localhost:8001/api/v1/authenticate/
-  user: http://localhost:8101/api/v1/user/
-  internal-user: http://localhost:8101/api/v1/internal/
-  stock: http://localhost:8102/api/v1/stocks/
-  trading: http://localhost:8103/api/v1/trading/
-  portfolio: http://localhost:8104/api/v1/portfolio/
-  order-matching: http://localhost:8105/api/v1/order-matching/
-  market-data: http://localhost:8106/api/v1/market-data/
-  notification: http://localhost:8107/api/v1/notification/
-  
-internal:
-  auth:
-    token: secret-token
+    expiration-time: 20000
+#    
+#baseuri:
+#  authentication: http://localhost:8001/api/v1/authenticate/
+#  user: http://localhost:8101/api/v1/user/
+#  internal-user: http://localhost:8101/api/v1/internal/
+#  stock: http://localhost:8102/api/v1/stocks/
+#  trading: http://localhost:8103/api/v1/trading/
+#  portfolio: http://localhost:8104/api/v1/portfolio/
+#  order-matching: http://localhost:8105/api/v1/order-matching/
+#  market-data: http://localhost:8106/api/v1/market-data/
+#  notification: http://localhost:8107/api/v1/notification/
+#  
+#internal:
+#  auth:
+#    token: secret-token
+#    
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#    fetch-registry: true
+#    register-with-eureka: true
+#  instance:
+#    prefer-ip-address: true
+#    hostname: localhost  

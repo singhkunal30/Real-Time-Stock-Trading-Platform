@@ -22,7 +22,7 @@ public class TradeOrderDTO {
 
 	private long userId;
 
-	private List<String> stockSymbols;
+	private String stockSymbol;
 
 	private long quantity;
 

@@ -15,7 +15,7 @@ public class OrderBookDTO {
 
 	private long bookId;
 
-	private List<Long> buyOrders;
+	private List<TradeOrderDTO> buyOrders;
 
-	private List<Long> sellOrders;
+	private List<TradeOrderDTO> sellOrders;
 }

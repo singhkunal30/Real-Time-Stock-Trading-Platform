@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.tradingplatform.common.enums.OrderStatus;
 import com.tradingplatform.common.enums.OrderType;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -38,9 +38,7 @@ public class TradeOrder {
 
 	private long userId;
 
-	@ElementCollection
-	@Column(name = "stocks")
-	private List<String> stockSymbols;
+	private String stockSymbol;
 
 	private long quantity;
 
@@ -51,7 +49,10 @@ public class TradeOrder {
 	private OrderStatus status;
 
 	private BigDecimal price;
+
+	@CreationTimestamp
 	private Timestamp orderDate;
+
 	private long executedQuantity;
 
 	@OneToMany(mappedBy = "tradeOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
