@@ -2,16 +2,24 @@
 spring:
   application:
     name: service-registry
-  config:
-    import: configserver:http://localhost:8888
-
+#  config:
+#    import: configserver:http://localhost:8888
+  cloud:
+    config:
+      enabled: false
 #Local
-#server:
-#  port: 8761
-#    
-#eureka:
-#  instance:
-#    hostname: localhost
-#  client:
-#    register-with-eureka: false
-#    fetch-registry: false
+server:
+  port: 8761
+
+logging:
+  level:
+    com:
+      netflix:
+        discovery: DEBUG
+    
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
